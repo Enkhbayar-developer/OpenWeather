@@ -7,13 +7,14 @@ import UV from "../../assets/cloud.svg?react";
 import Wind from "../../assets/wind.svg?react";
 import Card from "./Card";
 import { fetchData } from "../../api";
+import type { Coords } from "../../types";
 
-type Props = {};
+type Props = { coords: Coords };
 
-export default function AdditionalInfo({}: Props) {
+export default function AdditionalInfo({ coords }: Props) {
   const { data } = useSuspenseQuery({
-    queryKey: ["weather"],
-    queryFn: () => fetchData({ lat: 48, lon: 107 }),
+    queryKey: ["weather", coords],
+    queryFn: () => fetchData({ lat: coords.lat, lon: coords.lon }),
   });
 
   return (
@@ -44,6 +45,7 @@ function FormatComponent({ value, number }: { value: string; number: number }) {
       hour12: true,
     });
 
+  if (value === "wind_deg") return `${number}°`;
   return number;
 }
 
