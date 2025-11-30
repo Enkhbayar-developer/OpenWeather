@@ -11,12 +11,13 @@ export default function Map({ coords, onMapClick }: Props) {
   const { lat, lon } = coords;
   return (
     <MapContainer
+      key={`${coords.lat}, ${coords.lon}`}
       center={[lat, lon]}
       zoom={13}
       style={{ width: "100%", height: "400px" }}
       scrollWheelZoom={false}
     >
-      <MapClick onMapClick={onMapClick} />
+      <MapClick onMapClick={onMapClick} coords={coords} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -28,13 +29,16 @@ export default function Map({ coords, onMapClick }: Props) {
 
 function MapClick({
   onMapClick,
+  coords,
 }: {
   onMapClick: (lat: number, lon: number) => void;
+  coords: Coords;
 }) {
   const map = useMap();
+  map.panTo([coords.lat, coords.lon]);
+
   map.on("click", (e) => {
     const { lat, lng } = e.latlng;
-    map.panTo([lat, lng]);
     onMapClick(lat, lng);
   });
   return null;

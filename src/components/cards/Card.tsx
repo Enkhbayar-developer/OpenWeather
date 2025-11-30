@@ -8,8 +8,8 @@ type Props = {
 
 export default function Card({ children, title, childrenClassName }: Props) {
   return (
-    <div className="p-4 rounded-xl bg-zinc-900 shadow-md flex flex-col gap-4">
-      <h1>{title}</h1>
+    <div className="p-4 rounded-xl bg-linear-to-br from-card to-card/60 shadow-md flex flex-col gap-4">
+      <h1 className="text-2xl font-semibold">{title}</h1>
       <div className={childrenClassName}>{children}</div>
     </div>
   );
