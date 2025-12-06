@@ -15,6 +15,7 @@ import HourlySkeleton from "./components/skeletons/HourlySkeleton";
 import DailySkeleton from "./components/skeletons/DailySkeleton";
 import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleton";
 import SidePanel from "./components/SidePanel";
+import Hamburger from "../src/assets/hamburger.svg?react";
 
 function App() {
   const [coordinates, setCoordinates] = useState<Coords>({
@@ -23,6 +24,7 @@ function App() {
   });
   const [city, setCity] = useState("Ulaanbaatar");
   const [mapType, setMapType] = useState("clouds_new");
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(true);
 
   const { data: geoCodeData } = useQuery({
     queryKey: ["geocode", city],
@@ -51,6 +53,9 @@ function App() {
             <h1 className="text-xl font-semibold">Map Type: </h1>
             <MapTypeDropdown mapType={mapType} setMapType={setMapType} />
           </div>
+          <button onClick={() => setIsSidePanelOpen(true)}>
+            <Hamburger className="size-8 invert ml-auto" />
+          </button>
         </div>
         <div className="relative">
           <Map coords={coords} onMapClick={onMapClick} mapType={mapType} />
@@ -69,7 +74,11 @@ function App() {
           <AdditionalInfo coords={coords} />
         </Suspense>
       </div>
-      <SidePanel coords={coords} />
+      <SidePanel
+        coords={coords}
+        isSidePanelOpen={isSidePanelOpen}
+        setIsSidePanelOpen={setIsSidePanelOpen}
+      />
     </>
   );
 }
