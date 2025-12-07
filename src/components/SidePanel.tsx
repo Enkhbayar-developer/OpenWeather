@@ -8,6 +8,7 @@ import clsx from "clsx";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import Info from "../assets/info.svg?react";
 import Chevron from "../assets/chevronleft.svg?react";
+import SidePanelSkeleton from "./skeletons/SidePanelSkeleton";
 
 type Props = {
   coords: Coords;
@@ -27,7 +28,7 @@ export default function SidePanel(props: Props) {
       <button onClick={() => setIsSidePanelOpen(false)}>
         <Chevron className="size-8 invert -ml-2" />
       </button>
-      <Suspense>
+      <Suspense fallback={<SidePanelSkeleton />}>
         <AirPollution {...props} />
       </Suspense>
     </div>
@@ -36,14 +37,19 @@ export default function SidePanel(props: Props) {
 
 function AirPollution({ coords }: Props) {
   const { data } = useSuspenseQuery({
-    queryKey: ["pollution"],
-    queryFn: () => getAirPollution(coords),
+    // include coords in the key so the query refetches when location changes
+    queryKey: ["pollution", coords?.lat, coords?.lon],
+    queryFn: () => getAirPollution({ lat: coords.lat, lon: coords.lon }),
+    // only run when we have coordinates
+    enabled: Boolean(coords?.lat && coords?.lon),
   });
 
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-5xl font-semibold">Air pollution</h1>
-      <h1 className="text-5xl font-semibold">{data.list[0].main.aqi}</h1>
+      <h1 className="text-5xl font-semibold">
+        {data?.list?.[0]?.main?.aqi ?? "-"}
+      </h1>
       <div className="flex items-center gap-2">
         <h1 className="text-5xl font-semibold">AQI</h1>
         <Tooltip>
@@ -58,7 +64,7 @@ function AirPollution({ coords }: Props) {
           </TooltipContent>
         </Tooltip>
       </div>
-      {Object.entries(data.list[0].components).map(([key, value]) => {
+      {Object.entries(data?.list?.[0]?.components || {}).map(([key, value]) => {
         const pollutant =
           airQualityRanges[key.toUpperCase() as keyof AirQualityRanges];
         const max = Math.max(pollutant["Very Poor"].min, value);
