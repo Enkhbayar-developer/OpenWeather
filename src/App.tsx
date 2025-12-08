@@ -17,7 +17,7 @@ import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleto
 import SidePanel from "./components/SidePanel";
 import Hamburger from "../src/assets/hamburger.svg?react";
 import MobileHeader from "./components/MobileHeader";
-import LIghtDarkToggle from "./components/LIghtDarkToggle";
+import LightDarkToggle from "./components/LightDarkToggle";
 
 function App() {
   const [coordinates, setCoordinates] = useState<Coords>({
@@ -59,12 +59,14 @@ function App() {
             <MapTypeDropdown mapType={mapType} setMapType={setMapType} />
           </div>
           <div className="ml-auto flex gap-4 items-center">
-            <LIghtDarkToggle />
+            <div className="hidden xs:block">
+              <LightDarkToggle />
+            </div>
             <button
               onClick={() => setIsSidePanelOpen(true)}
               className="hidden xs:block"
             >
-              <Hamburger className="size-6 invert lg:hidden" />
+              <Hamburger className="size-6 lg:hidden" />
             </button>
           </div>
         </div>
