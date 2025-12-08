@@ -19,7 +19,7 @@ export default function Map({ coords, onMapClick, mapType }: Props) {
       key={`${coords.lat}, ${coords.lon}`}
       center={[lat, lon]}
       zoom={13}
-      style={{ width: "100%", height: "400px" }}
+      style={{ width: "100%", height: "100%" }}
       scrollWheelZoom={false}
     >
       <MapClick onMapClick={onMapClick} coords={coords} />
