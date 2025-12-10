@@ -3,7 +3,6 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchData } from "../../api";
 import WeatherIcon from "../WeatherIcon";
 import type { Coords } from "../../types";
-import { translateToMongolian } from "@/utils/translator";
 
 type Props = { coords: Coords };
 

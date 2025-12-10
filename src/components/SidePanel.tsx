@@ -40,8 +40,6 @@ function AirPollution({ coords }: Props) {
     // include coords in the key so the query refetches when location changes
     queryKey: ["pollution", coords?.lat, coords?.lon],
     queryFn: () => getAirPollution({ lat: coords.lat, lon: coords.lon }),
-    // only run when we have coordinates
-    enabled: Boolean(coords?.lat && coords?.lon),
   });
 
   return (
@@ -110,7 +108,7 @@ function AirPollution({ coords }: Props) {
                   </TooltipTrigger>
                   <TooltipContent className="z-2000">
                     <p className="max-w-xs">
-                      {pollutantNameMapping[key.toUpperCase()]}
+                      {pollutantNameMapping[key.toUpperCase() as Pollutant]}
                     </p>
                   </TooltipContent>
                 </Tooltip>
