@@ -17,7 +17,7 @@ import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleto
 import SidePanel from "./components/SidePanel";
 import Hamburger from "../src/assets/hamburger.svg?react";
 import MobileHeader from "./components/MobileHeader";
-import LightDarkToggle from "./components/LightDarkToggle";
+import LIghtDarkToggle from "./components/LIghtDarkToggle";
 
 function App() {
   const [coordinates, setCoordinates] = useState<Coords>({
@@ -58,7 +58,7 @@ function App() {
           </div>
           <div className="ml-auto flex gap-4 items-center">
             <div className="hidden xs:block">
-              <LightDarkToggle />
+              <LIghtDarkToggle />
             </div>
             <button
               onClick={() => setIsSidePanelOpen(true)}

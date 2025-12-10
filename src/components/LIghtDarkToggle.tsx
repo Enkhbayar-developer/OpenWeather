@@ -5,7 +5,7 @@ import { useTheme } from "./ThemeProvider";
 
 type Props = {};
 
-export default function LightDarkToggle({}: Props) {
+export default function LIghtDarkToggle({}: Props) {
   const { theme, toggleTheme } = useTheme();
   return (
     <div className="flex items-center gap-2">
