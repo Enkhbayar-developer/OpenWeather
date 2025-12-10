@@ -49,13 +49,11 @@ function App() {
       <div className="flex flex-col gap-8 pt-4 p-8 xs:pt-8 lg:w-[calc(100dvw-var(--sidebar-width))] h-full">
         <div className="flex flex-col gap-4 xs:flex-row xs:gap-8">
           <div className="flex flex-col md:flex-row gap-2 md:gap-4">
-            <h1 className="text-xl font-semibold">Location: </h1>
+            <h1 className="text-xl font-semibold">Байршил: </h1>
             <LocationDropdown city={city} setCity={setCity} />
           </div>
           <div className="flex flex-col md:flex-row gap-2 md:gap-4">
-            <h1 className="text-xl font-semibold whitespace-nowrap">
-              Map Type:{" "}
-            </h1>
+            <h1 className="text-xl font-semibold whitespace-nowrap">Төрөл: </h1>
             <MapTypeDropdown mapType={mapType} setMapType={setMapType} />
           </div>
           <div className="ml-auto flex gap-4 items-center">

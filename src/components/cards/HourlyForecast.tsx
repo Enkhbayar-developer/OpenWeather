@@ -14,7 +14,7 @@ export default function HourlyForecast({ coords }: Props) {
 
   return (
     <Card
-      title="Hourly Forecast (48 Hours)"
+      title="Цагийн урьдчилсан төлөв (48 цаг)"
       childrenClassName="flex gap-6 overflow-x-scroll"
     >
       {data.hourly.map((hour) => (
@@ -23,7 +23,7 @@ export default function HourlyForecast({ coords }: Props) {
             {new Date(hour.dt * 1000).toLocaleTimeString(undefined, {
               hour: "numeric",
               minute: "2-digit",
-              hour12: true,
+              hour12: false,
             })}
           </p>
           <WeatherIcon src={hour.weather[0].icon} />

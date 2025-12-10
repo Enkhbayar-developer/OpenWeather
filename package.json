@@ -20,6 +20,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
+    "libretranslate": "^1.0.1",
     "lucide-react": "^0.555.0",
     "react": "^19.0.0-rc.1",
     "react-dom": "^19.0.0-rc.1",

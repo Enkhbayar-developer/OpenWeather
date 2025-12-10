@@ -3,6 +3,7 @@ import { fetchData } from "../../api";
 import Card from "./Card";
 import WeatherIcon from "../WeatherIcon";
 import type { Coords } from "../../types";
+import { translateToMongolian } from "@/utils/translator";
 
 type Props = {
   coords: Coords;
@@ -16,7 +17,7 @@ export default function CurrentWeather({ coords }: Props) {
 
   return (
     <Card
-      title="Current Weather"
+      title="Яг одоо"
       className="md:pb-11"
       childrenClassName="flex flex-col items-center gap-6 2xl:justify-between"
     >
@@ -26,32 +27,32 @@ export default function CurrentWeather({ coords }: Props) {
         </h2>
         <WeatherIcon src={data.current.weather[0].icon} className="size-14" />
         <h3 className="capitalize text-xl">
-          {data.current.weather[0].description}
+          {translateToMongolian(data.current.weather[0].description)}
         </h3>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-xl text-center">Local Time: </p>
-        <h3 className="text-4xl font-semibold">
+        <p className="text-xl text-center">Орон нутгийн цагаар: </p>
+        <h3 className="text-4xl font-semibold text-center">
           {new Intl.DateTimeFormat("en-US", {
             hour: "2-digit",
             minute: "2-digit",
-            hour12: true,
+            hour12: false,
             timeZone: data.timezone,
           }).format(new Date(data.current.dt * 1000))}
         </h3>
       </div>
       <div className="flex justify-between w-full">
         <div className="flex flex-col items-center gap-2">
-          <p className="text-gray-500">Feels Like</p>
+          <p className="text-gray-500">Мэдрэгдэх</p>
           <p>{Math.round(data.current.feels_like)}°C</p>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <p className="text-gray-500">Humidity</p>
+          <p className="text-gray-500">Чийгшил</p>
           <p>{Math.round(data.current.humidity)}%</p>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <p className="text-gray-500">Wind</p>
-          <p>{Math.round(data.current.wind_speed)}m/s</p>
+          <p className="text-gray-500">Салхи</p>
+          <p>{Math.round(data.current.wind_speed)}м/с</p>
         </div>
       </div>
     </Card>

@@ -46,20 +46,20 @@ function AirPollution({ coords }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-5xl font-semibold">Air pollution</h1>
-      <h1 className="text-5xl font-semibold">
+      <h1 className="text-4xl font-semibold">Агаарын чанар</h1>
+      <h1 className="text-4xl font-semibold">
         {data?.list?.[0]?.main?.aqi ?? "-"}
       </h1>
       <div className="flex items-center gap-2">
-        <h1 className="text-5xl font-semibold">AQI</h1>
+        <h1 className="text-5xl font-semibold">АЧИ</h1>
         <Tooltip>
           <TooltipTrigger>
             <Info className="size-4" />
           </TooltipTrigger>
           <TooltipContent className="z-2000">
             <p className="max-w-xs">
-              Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 = Good,
-              2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.
+              Агаарын чанарын индекс. Боломжит үр дүн: 1, 2, 3, 4, 5. 1 = Сайн,
+              2 = Хэвийн, 3 = Дундаж, 4 = Муу, 5 = Маш муу.
             </p>
           </TooltipContent>
         </Tooltip>
@@ -67,7 +67,7 @@ function AirPollution({ coords }: Props) {
       {Object.entries(data?.list?.[0]?.components || {}).map(([key, value]) => {
         const pollutant =
           airQualityRanges[key.toUpperCase() as keyof AirQualityRanges];
-        const max = Math.max(pollutant["Very Poor"].min, value);
+        const max = Math.max(pollutant["Маш муу"].min, value);
         const currentLevel = (() => {
           for (const [level, range] of Object.entries(pollutant)) {
             if (
@@ -76,20 +76,20 @@ function AirPollution({ coords }: Props) {
             )
               return level;
           }
-          return "Very Poor";
+          return "Маш муу";
         })();
 
         const qualityColor = () => {
           switch (currentLevel) {
-            case "Good":
+            case "Сайн":
               return "bg-green-500";
-            case "Fair":
+            case "Боломжит":
               return "bg-yellow-500";
-            case "Moderate":
+            case "Дундаж":
               return "bg-orange-500";
-            case "Poor":
+            case "Муу":
               return "bg-red-500";
-            case "Very Poor":
+            case "Маш муу":
               return "bg-purple-500";
             default:
               return "bg-zinc-500";
@@ -110,7 +110,7 @@ function AirPollution({ coords }: Props) {
                   </TooltipTrigger>
                   <TooltipContent className="z-2000">
                     <p className="max-w-xs">
-                      Concentration of {pollutantNameMapping[key.toUpperCase()]}
+                      {pollutantNameMapping[key.toUpperCase()]}
                     </p>
                   </TooltipContent>
                 </Tooltip>
@@ -144,7 +144,7 @@ function AirPollution({ coords }: Props) {
   );
 }
 
-type AirQualityLevel = "Good" | "Fair" | "Moderate" | "Poor" | "Very Poor";
+type AirQualityLevel = "Сайн" | "Боломжит" | "Дундаж" | "Муу" | "Маш муу";
 
 interface Range {
   min: number;
@@ -157,70 +157,70 @@ type AirQualityRanges = Record<Pollutant, Record<AirQualityLevel, Range>>;
 
 const airQualityRanges: AirQualityRanges = {
   SO2: {
-    Good: { min: 0, max: 20 },
-    Fair: { min: 20, max: 80 },
-    Moderate: { min: 80, max: 250 },
-    Poor: { min: 250, max: 350 },
-    "Very Poor": { min: 350, max: null },
+    Сайн: { min: 0, max: 20 },
+    Боломжит: { min: 20, max: 80 },
+    Дундаж: { min: 80, max: 250 },
+    Муу: { min: 250, max: 350 },
+    "Маш муу": { min: 350, max: null },
   },
   NO2: {
-    Good: { min: 0, max: 40 },
-    Fair: { min: 40, max: 70 },
-    Moderate: { min: 70, max: 150 },
-    Poor: { min: 150, max: 200 },
-    "Very Poor": { min: 200, max: null },
+    Сайн: { min: 0, max: 40 },
+    Боломжит: { min: 40, max: 70 },
+    Дундаж: { min: 70, max: 150 },
+    Муу: { min: 150, max: 200 },
+    "Маш муу": { min: 200, max: null },
   },
   PM10: {
-    Good: { min: 0, max: 20 },
-    Fair: { min: 20, max: 50 },
-    Moderate: { min: 50, max: 100 },
-    Poor: { min: 100, max: 200 },
-    "Very Poor": { min: 200, max: null },
+    Сайн: { min: 0, max: 20 },
+    Боломжит: { min: 20, max: 50 },
+    Дундаж: { min: 50, max: 100 },
+    Муу: { min: 100, max: 200 },
+    "Маш муу": { min: 200, max: null },
   },
   PM2_5: {
-    Good: { min: 0, max: 10 },
-    Fair: { min: 10, max: 25 },
-    Moderate: { min: 25, max: 50 },
-    Poor: { min: 50, max: 75 },
-    "Very Poor": { min: 75, max: null },
+    Сайн: { min: 0, max: 10 },
+    Боломжит: { min: 10, max: 25 },
+    Дундаж: { min: 25, max: 50 },
+    Муу: { min: 50, max: 75 },
+    "Маш муу": { min: 75, max: null },
   },
   O3: {
-    Good: { min: 0, max: 60 },
-    Fair: { min: 60, max: 100 },
-    Moderate: { min: 100, max: 140 },
-    Poor: { min: 140, max: 180 },
-    "Very Poor": { min: 180, max: null },
+    Сайн: { min: 0, max: 60 },
+    Боломжит: { min: 60, max: 100 },
+    Дундаж: { min: 100, max: 140 },
+    Муу: { min: 140, max: 180 },
+    "Маш муу": { min: 180, max: null },
   },
   CO: {
-    Good: { min: 0, max: 4400 },
-    Fair: { min: 4400, max: 9400 },
-    Moderate: { min: 9400, max: 12400 },
-    Poor: { min: 12400, max: 15400 },
-    "Very Poor": { min: 15400, max: null },
+    Сайн: { min: 0, max: 4400 },
+    Боломжит: { min: 4400, max: 9400 },
+    Дундаж: { min: 9400, max: 12400 },
+    Муу: { min: 12400, max: 15400 },
+    "Маш муу": { min: 15400, max: null },
   },
   NO: {
-    Good: { min: 0, max: 20 },
-    Fair: { min: 20, max: 40 },
-    Moderate: { min: 40, max: 60 },
-    Poor: { min: 60, max: 80 },
-    "Very Poor": { min: 80, max: null },
+    Сайн: { min: 0, max: 20 },
+    Боломжит: { min: 20, max: 40 },
+    Дундаж: { min: 40, max: 60 },
+    Муу: { min: 60, max: 80 },
+    "Маш муу": { min: 80, max: null },
   },
   NH3: {
-    Good: { min: 0, max: 40 },
-    Fair: { min: 40, max: 70 },
-    Moderate: { min: 70, max: 150 },
-    Poor: { min: 150, max: 200 },
-    "Very Poor": { min: 200, max: null },
+    Сайн: { min: 0, max: 40 },
+    Боломжит: { min: 40, max: 70 },
+    Дундаж: { min: 70, max: 150 },
+    Муу: { min: 150, max: 200 },
+    "Маш муу": { min: 200, max: null },
   },
 };
 
 const pollutantNameMapping: Record<Pollutant, string> = {
-  SO2: "Sulfur dioxide",
-  NO2: "Nitrogen dioxide",
-  PM10: "Particulate matter 10",
-  PM2_5: "Fine particles matter",
-  O3: "Ozone",
-  CO: "Carbon monoxide",
-  NO: "Nitrogen monoxide",
-  NH3: "Ammonia",
+  SO2: "Хүхрийн давхар исэл",
+  NO2: "Азотын давхар исэл",
+  PM10: "Тоосонцор 10",
+  PM2_5: "Нарийн тоосонцор",
+  O3: "Озон",
+  CO: "Нүүрстөрөгчийн дутуу исэл",
+  NO: "Азотын дутуу исэл",
+  NH3: "Аммиак",
 };

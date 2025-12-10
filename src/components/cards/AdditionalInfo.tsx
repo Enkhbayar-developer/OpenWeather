@@ -19,7 +19,7 @@ export default function AdditionalInfo({ coords }: Props) {
 
   return (
     <Card
-      title="Additional Weather Info"
+      title="Ерөнхий мэдээлэл"
       childrenClassName="grid grid-cols-1 md:grid-cols-2 gap-8 2xl:gap-4"
     >
       {rows.map(({ label, value, Icon }) => (
@@ -42,7 +42,7 @@ function FormatComponent({ value, number }: { value: string; number: number }) {
     return new Date(number * 1000).toLocaleTimeString(undefined, {
       hour: "numeric",
       minute: "2-digit",
-      hour12: true,
+      hour12: false,
     });
 
   if (value === "wind_deg") return `${number}°`;
@@ -51,32 +51,32 @@ function FormatComponent({ value, number }: { value: string; number: number }) {
 
 const rows = [
   {
-    label: "Cloudiness (%)",
+    label: "Үүлшилт (%)",
     value: "clouds",
     Icon: Cloud,
   },
   {
-    label: "UV Index",
+    label: "UV индекс",
     value: "uvi",
     Icon: UV,
   },
   {
-    label: "Wind Direction",
+    label: "Салхины чиглэл",
     value: "wind_deg",
     Icon: Wind,
   },
   {
-    label: "Pressure (hPa)",
+    label: "Агаарын даралт (hPa)",
     value: "pressure",
     Icon: Pressure,
   },
   {
-    label: "Sunrise",
+    label: "Нар мандах",
     value: "sunrise",
     Icon: Sunrise,
   },
   {
-    label: "Sunset",
+    label: "Нар жаргах",
     value: "sunset",
     Icon: Sunset,
   },

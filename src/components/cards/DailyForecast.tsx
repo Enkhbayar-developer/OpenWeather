@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { fetchData } from "../../api";
 import WeatherIcon from "../WeatherIcon";
 import type { Coords } from "../../types";
+import { translateToMongolian } from "@/utils/translator";
 
 type Props = { coords: Coords };
 
@@ -14,7 +15,7 @@ export default function DailyForecast({ coords }: Props) {
 
   return (
     <Card
-      title="Daily Forecast"
+      title="Долоо хоногийн төлөв"
       childrenClassName="flex flex-col gap-4 2xl:gap-2 2xl:justify-between"
     >
       {data?.daily.map((day) => (
