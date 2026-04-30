@@ -11,7 +11,6 @@ async function getApiKey() {
 const API_KEY = await getApiKey();
 
 export async function fetchData({ lat, lon }: { lat: number; lon: number }) {
-  console.log("this is the api key", API_KEY);
   const response = await fetch(
     `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=minutely,alerts&appid=${API_KEY}`,
   );
